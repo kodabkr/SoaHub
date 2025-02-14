@@ -163,4 +163,8 @@ local infSilverToggle = automationTab:CreateToggle({
    end,
 })
 
-local statusLabel = automationTab:CreateLabel("Label Example", "rewind")
+local StatusLabel = automationTab:CreateLabel("Label Example", "rewind")
+
+local paragraphDivider = automationTab:CreateDivider()
+
+local Paragraph = Tab:CreateParagraph({Title = "Bunny Gap", Content = "The purpose of this is to find a very rare 1/6000+ entity in the Infinite Silver map, they are known as bunny gaps and this one has yes to be found."})
