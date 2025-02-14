@@ -1,4 +1,4 @@
 -- Supported Games
 getgenv().Games = {
-    ["gameId as number"] = "string to code for game.",
+    ["gameId as number"] = "link to raw github content for the game",
 }
