@@ -125,6 +125,8 @@ local function removeEntities(entitySave)
     end
 end
 
+local StatusLabel = automationTab:CreateLabel("Status: N/A (Toggle is off.)", "ban")
+
 local infSilverToggle = automationTab:CreateToggle({
    Name = "Inf Silver Bunny Gap Detector",
    CurrentValue = false,
@@ -166,7 +168,6 @@ local infSilverToggle = automationTab:CreateToggle({
    end,
 })
 
-local StatusLabel = automationTab:CreateLabel("Status: N/A (Toggle is off.)", "ban")
 local Paragraph = automationTab:CreateParagraph({
    Title = "Bunny Gap",
    Content = "This toggle will automatically search for and detect a Bunny Gap in Infinite Silver, a 1/6000+ event."
