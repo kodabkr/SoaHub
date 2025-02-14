@@ -163,7 +163,7 @@ local infSilverToggle = automationTab:CreateToggle({
    end,
 })
 
-local StatusLabel = automationTab:CreateLabel("Label Example", "rewind")
+local StatusLabel = automationTab:CreateLabel("Status: N/A (Toggle is off.)", "")
 
 local paragraphDivider = automationTab:CreateDivider()
 
