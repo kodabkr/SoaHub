@@ -35,9 +35,9 @@ local Window = Rayfield:CreateWindow({
    }
 })
 
-local automationTab = Window:CreateTab("Automation", "braces")
+-- All functionality below this comment
 
--- All functionality below this comment, besides the interace setup.
+local automationTab = Window:CreateTab("Automation", "braces")
 
 -- Variables
 local expectedPartCount = 92844
