@@ -108,7 +108,7 @@ end
 
 -- Removes all blacklisted entities in the entitySave object
 local function removeEntities(entitySave)
-    local blacklist = {
+    local entityBlacklist = {
         "Big Bunny",
     }
 
@@ -116,13 +116,14 @@ local function removeEntities(entitySave)
         local entitiesFound = false
 
         for _, obj in pairs(entitySave:GetChildren()) do
-            if obj:IsA("Model") and table.find(blacklist, obj.Name) then
+            if obj:IsA("Model") and table.find(entityBlacklist, obj.Name) then
                 obj:Destroy()
                 entitiesFound = true
             end
         end
+
         if entitiesFound then
-            print("Removed Unnecessary entities from EntitySave")
+            print("Removed entities")
         end
     end
 end
