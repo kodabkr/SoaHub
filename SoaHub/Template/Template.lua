@@ -23,7 +23,7 @@ local Window = Rayfield:CreateWindow({
       RememberJoins = true
    },
 
-   KeySystem = false
+   KeySystem = false,
 
    KeySettings = {
       Title = nil,
@@ -35,5 +35,3 @@ local Window = Rayfield:CreateWindow({
       Key = nil
    }
 })
-
--- All functionality below this comment, besides the interace setup.

@@ -22,7 +22,7 @@ local Window = Rayfield:CreateWindow({
       RememberJoins = true
    },
 
-   KeySystem = false
+   KeySystem = false,
 
    KeySettings = {
       Title = nil,
