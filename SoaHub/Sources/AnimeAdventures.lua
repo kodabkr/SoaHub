@@ -1,7 +1,8 @@
+-- Template for the scripts
 local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
 local Window = Rayfield:CreateWindow({
-   Name = "Soa Hub | Anime Adventures",
+   Name = "Soa Hub | Game Name",
    Icon = "fan",
    LoadingTitle = "Soa Hub",
    LoadingSubtitle = "Credits: Koda (Scripting) | ParteyLover (Motivational Speeches!)",
@@ -35,3 +36,4 @@ local Window = Rayfield:CreateWindow({
    }
 })
 
+-- All functionality below this comment, besides the interace setup.
