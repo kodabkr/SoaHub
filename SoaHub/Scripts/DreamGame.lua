@@ -142,14 +142,12 @@ local infSilverToggle = automationTab:CreateToggle({
                    removeEntities(entitySave)
 
                    if not mappy then
-                       print("Waiting for Infinite Silver to load")
                        sleep()
                        clickBunny()
                    else
                        countParts(mappy)
                        
                        if currentPartCount == expectedPartCount then
-                           print("Part count matches expected")
                            clickBunny()
                            sleep()
                        elseif currentPartCount > expectedPartCount then
