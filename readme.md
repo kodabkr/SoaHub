@@ -14,7 +14,7 @@ Soa Hub was designed for everyone, no matter the executor you use (unless it's d
 - Auto Purchase | Supports Gold Shop, Travelling Merchant, Limited Time Shop
 - Auto Evolve Units
 - Auto Reroll Unit Stat Potentials When Available
-
+- Auto Reroll Traits | Whitelist Specific Traits | Specify To Use Shards Or Rerolls, etc
 
 ## Credits
 
