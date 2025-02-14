@@ -5,7 +5,7 @@ Soa Hub is designed to be compatible with most Roblox executors, offering a reli
 ## Supported Games
 
 ### **Anime Adventures (Coming Soon)**
-- **Auto Story, Raid, Challenges, and Special Events**: Automate your progression across various in-game activities.
+- **Auto Story, Raid, Challenges, Infinity Mansion and Special Events**: Automate your progression across various in-game activities.
 - **Auto Summon**: Summon units with the ability to target units of your choice.
 - **Auto Claim Codes**: Automatically claim all available codes.
 - **Auto Claim Battlepass Rewards**: Instantly claim all battlepass rewards as you progress.
