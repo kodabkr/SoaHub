@@ -6,7 +6,7 @@ Soa Hub was designed for everyone, no matter the executor you use (unless it's d
 
 ### **Anime Adventures**
 - Auto Story | Raid | Challenges | Special Events | 
-- Auto Summon
+- Auto Summon | Can Specify Units To Summon For
 - Auto Claim All Codes
 - Auto Claim All Battlepass Rewards
 - Auto Claim All Quests
