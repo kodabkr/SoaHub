@@ -162,3 +162,5 @@ local infSilverToggle = automationTab:CreateToggle({
        end
    end,
 })
+
+local statusLabel = automationTab:CreateLabel("Label Example", "rewind")
