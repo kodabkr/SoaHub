@@ -13,7 +13,7 @@ Soa Hub was designed for everyone, no matter the executor you use (unless it's d
 - Auto Crafting Relics | Auto Scrap Trash Relics
 - Auto Purchase | Supports Gold Shop, Travelling Merchant, Limited Time Shop
 - Auto Evolve Units
-- Auto Reroll Unit Stat Potentials When Available
+- Auto Reroll Unit Stat Potentials When Available | Specify Stat Cubes To Use (Perfect, Normal)
 - Auto Reroll Traits | Whitelist Specific Traits | Specify To Use Shards Or Rerolls, etc
 
 ## Credits
