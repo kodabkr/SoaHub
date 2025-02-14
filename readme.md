@@ -4,7 +4,7 @@ Soa Hub was designed for everyone, no matter the executor you use (unless it's d
 
 ## Supported Games
 
-### 1. **Anime Adventures**
+### **Anime Adventures**
 - Auto Story | Raid | Challenges | Special Events | 
 - Auto Summon
 - Auto Claim All Codes
