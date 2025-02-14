@@ -1,4 +1,4 @@
 -- Supported Games
 getgenv().Games = {
-    ["gameId as number"] = "link to raw github content for the game",
+    [5475056496] = "https://raw.githubusercontent.com/kodabkr/SoaHub/refs/heads/main/SoaHub/Scripts/DreamGame.lua",
 }
