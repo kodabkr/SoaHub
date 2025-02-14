@@ -1,0 +1,1 @@
+loadstring(game:HttpGet("https://raw.githubusercontent.com/kodabkr/SoaHub/refs/heads/main/SoaHub/Loader/Loader.lua"))()
