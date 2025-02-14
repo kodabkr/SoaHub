@@ -164,4 +164,4 @@ local infSilverToggle = automationTab:CreateToggle({
 })
 
 local StatusLabel = automationTab:CreateLabel("Status: N/A (Toggle is off.)", "")
-local Paragraph = Tab:CreateParagraph({Title = "Bunny Gap", Content = "This toggle will automatically search for and detect a Bunny Gap in Infinite Silver, a 1/6000+ event."})
+local Paragraph = automationTab:CreateParagraph({Title = "Bunny Gap", Content = "This toggle will automatically search for and detect a Bunny Gap in Infinite Silver, a 1/6000+ event."})
