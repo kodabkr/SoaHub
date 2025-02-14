@@ -6,7 +6,7 @@ local Window = Rayfield:CreateWindow({
    Icon = "fan",
    LoadingTitle = "Soa Hub",
    LoadingSubtitle = "Credits: Koda (Scripting) | ParteyLover (Motivational Speeches!)",
-   Theme = "Serenity", -- https://docs.sirius.menu/rayfield/configuration/themes
+   Theme = "Default", -- https://docs.sirius.menu/rayfield/configuration/themes
 
    DisableRayfieldPrompts = false,
    DisableBuildWarnings = false,
