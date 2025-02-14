@@ -1,6 +1,5 @@
 # Soa Hub
 
-## Description
 Soa Hub was designed for everyone, no matter the executor you use (unless it's dogshit) you should be able to use my scripts.
 
 ## Supported Games
