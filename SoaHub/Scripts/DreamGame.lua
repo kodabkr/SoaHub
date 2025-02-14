@@ -140,26 +140,34 @@ local infSilverToggle = automationTab:CreateToggle({
                    removeEntities(entitySave)
 
                    if not mappy then
-                       print("Waiting for Infinite Silver to load")
+                       -- Update the label status here
+                       StatusLabel:Set("Status: Waiting for Infinite Silver to load", "loader") -- Change the icon to the appropriate Lucide icon if needed
                        sleep()
                        clickBunny()
                    else
                        countParts(mappy)
                        
                        if currentPartCount == expectedPartCount then
-                           print("Part count matches expected")
+                           -- Update the label status when part count matches
+                           StatusLabel:Set("Status: Part count matches expected", "check") -- You can use a check-circle icon or any other icon
                            clickBunny()
                            sleep()
                        elseif currentPartCount > expectedPartCount then
-                           print("Unexpected part count. Stopping.")
+                           -- Update the label status when part count is unexpected
+                           StatusLabel:Set("Status: Unexpected part count. Stopping.", "refresh-cw-off") -- Use an 'x-circle' or any error icon
                            break
                        end
                    end
                end
            end)()
+       else
+           StatusLabel:Set("Status: N/A (Toggle is off.)", "ban")
        end
    end,
 })
 
-local StatusLabel = automationTab:CreateLabel("Status: N/A (Toggle is off.)", "")
-local Paragraph = automationTab:CreateParagraph({Title = "Bunny Gap", Content = "This toggle will automatically search for and detect a Bunny Gap in Infinite Silver, a 1/6000+ event."})
+local StatusLabel = automationTab:CreateLabel("Status: N/A (Toggle is off.)", "ban")
+local Paragraph = automationTab:CreateParagraph({
+   Title = "Bunny Gap",
+   Content = "This toggle will automatically search for and detect a Bunny Gap in Infinite Silver, a 1/6000+ event."
+})
