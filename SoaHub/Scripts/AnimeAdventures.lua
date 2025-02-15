@@ -104,7 +104,7 @@ local merchantsWhitelist = {}
 local letterStatWhitelist = {}
 local evolveWhitelist = {}
 
--- needs to be the exact workspace match, not just name matching other instances, exact instance.
+-- needs to be exact workspace instance
 local args = {[1] = workspace:WaitForChild("_UNITS"):WaitForChild("ghostkun")}
 game:GetService("ReplicatedStorage"):WaitForChild("endpoints"):WaitForChild("client_to_server"):WaitForChild("upgrade_unit_ingame"):InvokeServer(unpack(args))
 
