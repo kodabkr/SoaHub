@@ -46,7 +46,7 @@ function placeTowers()
         { "Goku_BlackEvo", CFrame.new(-33.796119689941406, 58.517337799072266, -177.6112060546875, 1, 0, 0, 0, 1, 0, 0, 0, 1) },
         { "Giorno_GER", CFrame.new(-48.266937255859375, 55.35637664794922, -169.7427978515625, 1, 0, 0, 0, 1, 0, 0, 0, 1) },
         { "JinMoriGodly", CFrame.new(-41.741661071777344, 55.35637664794922, -169.35519409179688, 1, 0, 0, 0, 1, 0, 0, 0, 1) },
-        { "Yoo Jinho", CFrame.new(-39.055198669433594, 55.706390380859375, -158.9326934814453, 1, 0, 0, 0, 1, 0, 0, 0, 1) },
+        { "Yoo Jinho", CFrame.new(-39.055198669433594, 55.706390380859375, -158.9326934814453, 1, 0, 0, 0, 1, 0, 0, 0, 1) }
     }
 
     for _, args in ipairs(towerArgs) do
@@ -55,12 +55,20 @@ function placeTowers()
 
     local upgradeArgs = {
         "AiHoshinoEvo",
+        "AiHoshinoEvo",
+        "AiHoshinoEvo",
+        "AiHoshinoEvo",
+        "AiHoshinoEvo",
+        "AiHoshinoEvo",
+        "AiHoshinoEvo",
+        "AiHoshinoEvo",
+        "AiHoshinoEvo",
         "Goku_BlackEvo",
         "Giorno_GER",
         "JinMoriGodly",
         "Yoo Jinho"
     }
-            
+
     for _, towerName in ipairs(upgradeArgs) do
         local tower = workspace:FindFirstChild("Towers") and workspace.Towers:FindFirstChild(towerName)
         if tower then
