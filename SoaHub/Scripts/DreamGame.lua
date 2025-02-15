@@ -36,7 +36,6 @@ local Window = Rayfield:CreateWindow({
 })
 
 -- All functionality below this comment
-
 local automationTab = Window:CreateTab("Automation", "braces")
 local automationDivider = automationTab:CreateDivider()
 
