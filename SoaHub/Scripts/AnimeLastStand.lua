@@ -517,7 +517,7 @@ local discordButton = extrasTab:CreateButton({
         Rayfield:Notify({
             Title = "Discord Link Copied!",
             Content = "Paste the link in your browser or any chat on Discord to join the Discord server.",
-            Duration = 5,
+            Duration = 8,
             Image = 4483362458,
         })
     end,
