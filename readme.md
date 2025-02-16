@@ -21,8 +21,8 @@ Soa Hub is designed to be compatible with most Roblox executors, offering a reli
 
 - **Auto Place Units**
 - **Auto Upgrade Units**
-- **Config**: Save specified unit positions across instances and save config profiles, this is helpful in case you want to save a profile for events, boss rush, specific story mode maps, infinites, etc.
-- **Event**: Automatically handle Rifts and collect energy orbs dropped from enemies. The script will automatically load the saved profile when you select the config you'd like to use.
+- **Config**: Save specified unit positions across instances and save config profiles, this is helpful in case you want to save a profile for events, boss rush, specific story mode maps, infinites, etc, The script will automatically load the saved profile when you select the config you'd like to use.
+- **Event**: Automatically handle Rifts and collect energy orbs dropped from enemies.
 
 ## Credits
 
