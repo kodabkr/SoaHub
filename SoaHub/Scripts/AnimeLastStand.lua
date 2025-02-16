@@ -1,90 +1,181 @@
 local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
 local Window = Rayfield:CreateWindow({
-   Name = "Soa Hub | Anime Last Stand",
-   Icon = "fan",
-   LoadingTitle = "Soa Hub",
-   LoadingSubtitle = "Credits: Koda (Scripting)",
-   Theme = "Default", -- https://docs.sirius.menu/rayfield/configuration/themes
-
-   DisableRayfieldPrompts = false,
-   DisableBuildWarnings = false,
-
-   ConfigurationSaving = {
-      Enabled = true,
-      FolderName = "SoaHubConfigs",
-      FileName = "AnimeLastStand"
-   },
-
-   Discord = {
-      Enabled = true,
-      Invite = "rdpjRDNDHU",
-      RememberJoins = true
-   },
-
-   KeySystem = false,
-
-   KeySettings = {
-      Title = nil,
-      Subtitle = nil,
-      Note = nil,
-      FileName = nil,
-      SaveKey = nil,
-      GrabKeyFromSite = nil,
-      Key = nil
-   }
+    Name = "Soa Hub | Anime Last Stand",
+    Icon = "fan",
+    LoadingTitle = "Soa Hub",
+    LoadingSubtitle = "Credits: Koda (Scripting)",
+    Theme = "Default",
+    DisableRayfieldPrompts = false,
+    DisableBuildWarnings = false,
+    ConfigurationSaving = {
+        Enabled = true,
+        FolderName = "SoaHubConfigs",
+        FileName = "AnimeLastStand"
+    },
+    Discord = {
+        Enabled = true,
+        Invite = "rdpjRDNDHU",
+        RememberJoins = true
+    },
+    KeySystem = false,
+    KeySettings = {
+        Title = nil,
+        Subtitle = nil,
+        Note = nil,
+        FileName = nil,
+        SaveKey = nil,
+        GrabKeyFromSite = nil,
+        Key = nil
+    }
 })
 
--- All functionality below this comment
+-- UI Tab Creation
 local automationTab = Window:CreateTab("Automation", "braces")
 local automationDivider = automationTab:CreateDivider()
+local eventTab = Window:CreateTab("Event", "braces")
+local eventDivider = eventTab:CreateDivider()
+local configTab = Window:CreateTab("Configuration", "cog")
+local configDivider = configTab:CreateDivider()
 
-
-local args = {
-    [1] = "Goku_BlackEvo",
-    [2] = CFrame.new(576.3214111328125, -445.6663513183594, 63.081809997558594, 1, 0, 0, 0, 1, 0, 0, 0, 1)
+-- Variables to Persist (only unitPositions now)
+local persistentData = {
+    unitPositions = {}
 }
 
-game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("PlaceTower"):FireServer(unpack(args))
+local configFolderName = "SoaHubConfigs"
+local configFileName = "AnimeLastStand_Data"
+local configExtension = ".json"
 
-function placeTowers()
-    local towerArgs = {
-        { "AiHoshinoEvo", CFrame.new(563.192138671875, -448.0446472167969, 65.16072082519531, 1, 0, 0, 0, 1, 0, 0, 0, 1) },
-        { "Goku_BlackEvo", CFrame.new(576.3214111328125, -445.6663513183594, 63.081809997558594, 1, 0, 0, 0, 1, 0, 0, 0, 1) },
-        -- { "Giorno_GER", CFrame.new(-48.266937255859375, 55.35637664794922, -169.7427978515625, 1, 0, 0, 0, 1, 0, 0, 0, 1) },
-        -- { "JinMoriGodly", CFrame.new(-41.741661071777344, 55.35637664794922, -169.35519409179688, 1, 0, 0, 0, 1, 0, 0, 0, 1) },
-        -- { "Yoo Jinho", CFrame.new(-39.055198669433594, 55.706390380859375, -158.9326934814453, 1, 0, 0, 0, 1, 0, 0, 0, 1) }
+local HttpService = game:GetService("HttpService")
+
+-- Functions
+local function saveData()
+    local serializableData = {
+        unitPositions = {}
     }
-
-    for _, args in ipairs(towerArgs) do
-        game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("PlaceTower"):FireServer(unpack(args))
+    for i, pos in ipairs(persistentData.unitPositions) do
+        if pos then
+            serializableData.unitPositions[i] = {X = pos.X, Y = pos.Y, Z = pos.Z}
+        else
+            serializableData.unitPositions[i] = nil
+        end
     end
 
-    local upgradeArgs = {
-        "AiHoshinoEvo",
-        "AiHoshinoEvo",
-        "AiHoshinoEvo",
-        "AiHoshinoEvo",
-        "AiHoshinoEvo",
-        "AiHoshinoEvo",
-        "AiHoshinoEvo",
-        "AiHoshinoEvo",
-        "AiHoshinoEvo",
-        "Goku_BlackEvo",
-        -- "Giorno_GER",
-        -- "JinMoriGodly",
-        -- "Yoo Jinho"
-    }
+    local success, encodedData = pcall(function()
+        return HttpService:JSONEncode(serializableData)
+    end)
 
-    for _, towerName in ipairs(upgradeArgs) do
-        local tower = workspace:FindFirstChild("Towers") and workspace.Towers:FindFirstChild(towerName)
-        if tower then
-            game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("UnitManager"):WaitForChild("SetAutoUpgrade"):FireServer(tower, true)
+    if success then
+        if writefile then
+            local folderPath = configFolderName
+            local filePath = folderPath .. "/" .. configFileName .. configExtension
+
+            if not isfolder(folderPath) then
+                makefolder(folderPath)
+            end
+
+            local writeSuccess, writeError = pcall(function()
+                writefile(filePath, encodedData)
+            end)
+
+            if not writeSuccess then
+                warn("Error writing configuration file: ", writeError)
+                Rayfield:Notify({Title = "Save Error", Content = "Failed to save configuration data.", Image = 4400704299})
+            else
+                print("Configuration saved successfully to: " .. filePath)
+            end
+        else
+            warn("writefile function is not available. Cannot save configuration.")
+            Rayfield:Notify({Title = "Save Error", Content = "File saving not supported in this environment.", Image = 4400704299})
+        end
+    else
+        warn("Error encoding configuration data to JSON: ", encodedData)
+        Rayfield:Notify({Title = "Save Error", Content = "Failed to prepare configuration data for saving.", Image = 4400704299})
+    end
+end
+
+local function loadData()
+    if not isfile then
+        warn("isfile function is not available. Cannot load configuration.")
+        Rayfield:Notify({Title = "Load Error", Content = "File loading not supported in this environment.", Image = 4400704299})
+        return
+    end
+
+    local folderPath = configFolderName
+    local filePath = folderPath .. "/" .. configFileName .. configExtension
+
+    if isfile(filePath) then
+        local success, fileContent = pcall(function()
+            return readfile(filePath)
+        end)
+
+        if success then
+            local decodeSuccess, decodedData = pcall(function()
+                return HttpService:JSONDecode(fileContent)
+            end)
+
+            if decodeSuccess then
+                if decodedData and decodedData.unitPositions then
+                    persistentData.unitPositions = {}
+                    for i, posTable in ipairs(decodedData.unitPositions) do
+                        if posTable then
+                            persistentData.unitPositions[i] = Vector3.new(posTable.X, posTable.Y, posTable.Z)
+                        else
+                            persistentData.unitPositions[i] = nil
+                        end
+                    end
+                end
+                print("Configuration loaded successfully from: " .. filePath)
+                return
+            else
+                warn("Error decoding configuration JSON: ", decodedData)
+                Rayfield:Notify({Title = "Load Error", Content = "Configuration file is corrupted or invalid.", Image = 4400704299})
+            end
+        else
+            warn("Error reading configuration file: ", fileContent)
+            Rayfield:Notify({Title = "Load Error", Content = "Failed to read configuration file.", Image = 4400704299})
+        end
+    else
+        print("Configuration file not found. Using default settings.")
+    end
+end
+
+-- Automation Functions
+local isAutoRunning = false
+local function placeTowers()
+    if not isAutoRunning then return end
+    for i, unitName in ipairs(units) do
+        local unitPosition = persistentData.unitPositions[i]
+        if unitPosition then
+            game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("PlaceTower"):FireServer(unitName, unitPosition)
         end
     end
 end
 
-function autoDoRifts()
+local isAutoUpgradeRunning = false
+local function upgradeTowers()
+    if not isAutoUpgradeRunning then return end
+    for _, towerName in ipairs(units) do
+        local tower = workspace:FindFirstChild("Towers") and workspace.Towers:FindFirstChild(towerName)
+        if tower then
+            game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("Upgrade"):InvokeServer(tower)
+        end
+    end
+end
+
+local function getPlayersTowers()
+    units = {}
+    for _, v in pairs(game:GetService("Players").LocalPlayer.Slots:GetChildren()) do
+        if v:IsA("StringValue") then
+            table.insert(units, v.Value)
+        end
+    end
+end
+
+-- Event Functions
+local isAutoRiftRunning = false
+local function rifts()
     local riftPath = workspace.Map.Rifts
     while isAutoRiftRunning and task.wait(.1) do
         for _, v in pairs(riftPath:GetDescendants()) do
@@ -95,26 +186,29 @@ function autoDoRifts()
     end
 end
 
-function autoCollectEnergy()
+local isAutoEnergyRunning = false
+local function collectEnergy()
     local energyPath = workspace.Collectibles.ClientModels
     while isAutoEnergyRunning and task.wait(.2) do
         for _, v in pairs(energyPath:GetChildren()) do
             if v.Name == "Energy" then
-                game.Players.LocalPlayer.Character.HumanoidRootPart.Position = v.Position 
+                game.Players.LocalPlayer.Character.HumanoidRootPart.Position = v.Position
             end
         end
     end
 end
 
+-- UI Elements
+-- Automation UI Elements
 local autoPlaceToggle = automationTab:CreateToggle({
-    Name = "Auto Place",
-    CurrentValue = false,
+    Name = "Auto Place Units",
+    CurrentValue = false, -- Default value, not persisted
     Flag = "AutoPlaceUnits",
     Callback = function(Value)
         isAutoRunning = Value
         if isAutoRunning then
             coroutine.wrap(function()
-                while isAutoRunning and task.wait(2) do
+                while isAutoRunning and task.wait(1) do
                     placeTowers()
                 end
             end)()
@@ -122,28 +216,90 @@ local autoPlaceToggle = automationTab:CreateToggle({
     end,
 })
 
-local autoRiftToggle = automationTab:CreateToggle({
-    Name = "Auto Do Rifts",
-    CurrentValue = false,
-    Flag = "AutoDoRifts",
+local autoUpgradeTowers = automationTab:CreateToggle({
+    Name = "Auto Upgrade Units",
+    CurrentValue = false, -- Default value, not persisted
+    Flag = "AutoUpgradeUnits",
     Callback = function(Value)
-        isAutoRiftRunning = Value
-        if isAutoRiftRunning then
-            coroutine.wrap(autoDoRifts)()
+        isAutoUpgradeRunning = Value
+        if isAutoUpgradeRunning then
+            coroutine.wrap(function()
+                while isAutoUpgradeRunning and task.wait(1) do
+                    upgradeTowers()
+                end
+            end)()
         end
     end,
 })
 
-local autoEnergyToggle = automationTab:CreateToggle({
+-- Event UI Elements
+local autoRiftToggle = eventTab:CreateToggle({
+    Name = "Auto Handle Rifts",
+    CurrentValue = false, -- Default value, not persisted
+    Flag = "AutoHandleRifts",
+    Callback = function(Value)
+        isAutoRiftRunning = Value
+        if isAutoRiftRunning then
+            coroutine.wrap(rifts)()
+        end
+    end,
+})
+
+local autoEnergyToggle = eventTab:CreateToggle({
     Name = "Auto Collect Energy",
-    CurrentValue = false,
+    CurrentValue = false, -- Default value, not persisted
     Flag = "AutoCollectEnergy",
     Callback = function(Value)
         isAutoEnergyRunning = Value
         if isAutoEnergyRunning then
-            coroutine.wrap(autoCollectEnergy)()
+            coroutine.wrap(collectEnergy)()
         end
     end,
 })
 
+-- Configuration UI Elements
+local waitForMouseClick = function()
+    local userInputService = game:GetService("UserInputService")
+    local mouse = game.Players.LocalPlayer:GetMouse()
+    local input = userInputService.InputBegan:Wait()
+    if input.UserInputType == Enum.UserInputType.MouseButton1 then
+        local clickedPosition = mouse.Hit.Position
+        clickedPosition = Vector3.new(clickedPosition.X, clickedPosition.Y + 1, clickedPosition.Z)
+        return clickedPosition
+    end
+end
+
+local createUnitPositionSetter = function(unitIndex)
+    local unitLabel = configTab:CreateLabel("Unit " .. unitIndex .. ": " .. tostring(persistentData.unitPositions[unitIndex] or "Not Set"), 4483362458, Color3.fromRGB(255, 255, 255), false)
+    local unitPosButton = configTab:CreateButton({
+        Name = "Set Unit " .. unitIndex .. " Position",
+        Callback = function()
+            local position = waitForMouseClick()
+            if position then
+                persistentData.unitPositions[unitIndex] = position
+                unitLabel:Set("Unit " .. unitIndex .. ": " .. tostring(position), 4483362458, Color3.fromRGB(255, 255, 255), false)
+                saveData()
+                Rayfield:Notify({
+                    Title = "Position Indicator",
+                    Content = "Unit " .. unitIndex .. " Position Set to: " .. tostring(position),
+                    Duration = 3,
+                    Image = 4483362458,
+                })
+            end
+        end,
+    })
+    return unitLabel, unitPosButton
+end
+
+for i = 1, 6 do
+    createUnitPositionSetter(i)
+end
+
+-- Loop Get Players Towers
+while task.wait(3) do
+    getPlayersTowers()
+end
+
+-- Loading Configuration
+loadData()
 Rayfield:LoadConfiguration()
