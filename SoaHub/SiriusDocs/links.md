@@ -1,4 +1,4 @@
 # Documentation Links
 
-<https://docs.sirius.menu/rayfield>
-<https://lucide.dev/icons/>
+- Rayfield Documentation: <https://docs.sirius.menu/rayfield>
+- Lucide Icons: <https://lucide.dev/icons/>
