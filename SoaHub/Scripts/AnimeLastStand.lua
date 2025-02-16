@@ -60,7 +60,13 @@ local units = {}
 
 -- Persistent Data
 local persistentData = {
-    unitPositions = {}
+    unitPositions = {},
+    autoPlaceUnit1 = false,
+    autoPlaceUnit2 = false,
+    autoPlaceUnit3 = false,
+    autoPlaceUnit4 = false,
+    autoPlaceUnit5 = false,
+    autoPlaceUnit6 = false
 }
 
 local configFolderName = "SoaHubConfigs"
@@ -72,7 +78,13 @@ local HttpService = game:GetService("HttpService")
 -- Functions
 local function saveData()
     local serializableData = {
-        unitPositions = {}
+        unitPositions = {},
+        autoPlaceUnit1 = persistentData.autoPlaceUnit1,
+        autoPlaceUnit2 = persistentData.autoPlaceUnit2,
+        autoPlaceUnit3 = persistentData.autoPlaceUnit3,
+        autoPlaceUnit4 = persistentData.autoPlaceUnit4,
+        autoPlaceUnit5 = persistentData.autoPlaceUnit5,
+        autoPlaceUnit6 = persistentData.autoPlaceUnit6
     }
     for i, pos in ipairs(persistentData.unitPositions) do
         if pos then
@@ -124,6 +136,7 @@ local waitForMouseClick = function()
 end
 
 local unitLabel1 = configTab:CreateLabel("Unit 1: Not Set", 4483362458, Color3.fromRGB(255, 255, 255), false)
+
 local unitPosButton1 = configTab:CreateButton({
     Name = "Set Unit 1 Position",
     Callback = function()
@@ -141,6 +154,18 @@ local unitPosButton1 = configTab:CreateButton({
         end
     end,
 })
+
+local unit1Toggle = configTab:CreateToggle({
+    Name = "Auto Place Unit 1",
+    CurrentValue = persistentData.autoPlaceUnit1,
+    Flag = "AutoPlaceUnit1",
+    Callback = function(Value)
+        persistentData.autoPlaceUnit1 = Value
+        saveData()
+    end,
+})
+
+local unitsDivider1 = configTab:CreateDivider()
 
 local unitLabel2 = configTab:CreateLabel("Unit 2: Not Set", 4483362458, Color3.fromRGB(255, 255, 255), false)
 local unitPosButton2 = configTab:CreateButton({
@@ -161,6 +186,18 @@ local unitPosButton2 = configTab:CreateButton({
     end,
 })
 
+local unit2Toggle = configTab:CreateToggle({
+    Name = "Auto Place Unit 2",
+    CurrentValue = persistentData.autoPlaceUnit2,
+    Flag = "AutoPlaceUnit2",
+    Callback = function(Value)
+        persistentData.autoPlaceUnit2 = Value
+        saveData()
+    end,
+})
+
+local unitsDivider2 = configTab:CreateDivider()
+
 local unitLabel3 = configTab:CreateLabel("Unit 3: Not Set", 4483362458, Color3.fromRGB(255, 255, 255), false)
 local unitPosButton3 = configTab:CreateButton({
     Name = "Set Unit 3 Position",
@@ -179,6 +216,18 @@ local unitPosButton3 = configTab:CreateButton({
         end
     end,
 })
+
+local unit3Toggle = configTab:CreateToggle({
+    Name = "Auto Place Unit 3",
+    CurrentValue = persistentData.autoPlaceUnit3,
+    Flag = "AutoPlaceUnit3",
+    Callback = function(Value)
+        persistentData.autoPlaceUnit3 = Value
+        saveData()
+    end,
+})
+
+local unitsDivider3 = configTab:CreateDivider()
 
 local unitLabel4 = configTab:CreateLabel("Unit 4: Not Set", 4483362458, Color3.fromRGB(255, 255, 255), false)
 local unitPosButton4 = configTab:CreateButton({
@@ -199,6 +248,18 @@ local unitPosButton4 = configTab:CreateButton({
     end,
 })
 
+local unit4Toggle = configTab:CreateToggle({
+    Name = "Auto Place Unit 4",
+    CurrentValue = persistentData.autoPlaceUnit4,
+    Flag = "AutoPlaceUnit4",
+    Callback = function(Value)
+        persistentData.autoPlaceUnit4 = Value
+        saveData()
+    end,
+})
+
+local unitsDivider4 = configTab:CreateDivider()
+
 local unitLabel5 = configTab:CreateLabel("Unit 5: Not Set", 4483362458, Color3.fromRGB(255, 255, 255), false)
 local unitPosButton5 = configTab:CreateButton({
     Name = "Set Unit 5 Position",
@@ -218,6 +279,18 @@ local unitPosButton5 = configTab:CreateButton({
     end,
 })
 
+local unit5Toggle = configTab:CreateToggle({
+    Name = "Auto Place Unit 5",
+    CurrentValue = persistentData.autoPlaceUnit5,
+    Flag = "AutoPlaceUnit5",
+    Callback = function(Value)
+        persistentData.autoPlaceUnit5 = Value
+        saveData()
+    end,
+})
+
+local unitsDivider5 = configTab:CreateDivider()
+
 local unitLabel6 = configTab:CreateLabel("Unit 6: Not Set", 4483362458, Color3.fromRGB(255, 255, 255), false)
 local unitPosButton6 = configTab:CreateButton({
     Name = "Set Unit 6 Position",
@@ -236,6 +309,18 @@ local unitPosButton6 = configTab:CreateButton({
         end
     end,
 })
+
+local unit6Toggle = configTab:CreateToggle({
+    Name = "Auto Place Unit 6",
+    CurrentValue = persistentData.autoPlaceUnit6,
+    Flag = "AutoPlaceUnit6",
+    Callback = function(Value)
+        persistentData.autoPlaceUnit6 = Value
+        saveData()
+    end,
+})
+
+local unitsDivider6 = configTab:CreateDivider()
 
 local function updateUnitLabels()
     unitLabel1:Set("Unit 1: " .. tostring(persistentData.unitPositions[1] or "Not Set"), 4483362458, Color3.fromRGB(255, 255, 255), false)
@@ -267,15 +352,23 @@ local function loadData()
             end)
 
             if decodeSuccess then
-                if decodedData and decodedData.unitPositions then
-                    persistentData.unitPositions = {}
-                    for i, posTable in ipairs(decodedData.unitPositions) do
-                        if posTable then
-                            persistentData.unitPositions[i] = Vector3.new(posTable.X, posTable.Y, posTable.Z)
-                        else
-                            persistentData.unitPositions[i] = nil
+                if decodedData then
+                    if decodedData.unitPositions then
+                        persistentData.unitPositions = {}
+                        for i, posTable in ipairs(decodedData.unitPositions) do
+                            if posTable then
+                                persistentData.unitPositions[i] = Vector3.new(posTable.X, posTable.Y, posTable.Z)
+                            else
+                                persistentData.unitPositions[i] = nil
+                            end
                         end
                     end
+                    persistentData.autoPlaceUnit1 = decodedData.autoPlaceUnit1 or false
+                    persistentData.autoPlaceUnit2 = decodedData.autoPlaceUnit2 or false
+                    persistentData.autoPlaceUnit3 = decodedData.autoPlaceUnit3 or false
+                    persistentData.autoPlaceUnit4 = decodedData.autoPlaceUnit4 or false
+                    persistentData.autoPlaceUnit5 = decodedData.autoPlaceUnit5 or false
+                    persistentData.autoPlaceUnit6 = decodedData.autoPlaceUnit6 or false
                     updateUnitLabels()
                 end
             else
@@ -292,7 +385,7 @@ local function placeTowers()
     if not isAutoRunning then return end
     for i, unitName in ipairs(units) do
         local unitPosition = persistentData.unitPositions[i]
-        if unitPosition then
+        if unitPosition and persistentData["autoPlaceUnit" .. i] then
             local unitCFrame = CFrame.new(unitPosition)
             game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("PlaceTower"):FireServer(tostring(unitName), unitCFrame)
         end
