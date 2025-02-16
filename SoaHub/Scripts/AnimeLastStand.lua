@@ -385,7 +385,7 @@ local function placeTowers()
     if not isAutoRunning then return end
     for i, unitName in ipairs(units) do
         local unitPosition = persistentData.unitPositions[i]
-        local towerExists = workspace:FindFirstChild("Towers") and workspace.Towers:FindFirstChild(unitName)
+        local towerExists = workspace:FindFirstChild("Towers") and workspace.Towers:FindFirstChild(tostring(unitName))
         
         if unitPosition and persistentData["autoPlaceUnit" .. i] and not towerExists then
             local unitCFrame = CFrame.new(unitPosition)
