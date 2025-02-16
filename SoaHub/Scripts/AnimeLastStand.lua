@@ -50,10 +50,10 @@ Rayfield:Notify({
 -- UI Tab Creation
 local automationTab = Window:CreateTab("Automation", "braces")
 local automationDivider = automationTab:CreateDivider()
-local eventTab = Window:CreateTab("Event", "clock")
-local eventDivider = eventTab:CreateDivider()
 local configTab = Window:CreateTab("Configuration", "cog")
 local configDivider = configTab:CreateDivider()
+local eventTab = Window:CreateTab("Event", "clock")
+local eventDivider = eventTab:CreateDivider()
 local extrasTab = Window:CreateTab("Extras", "star")
 local extrasDivider = extrasTab:CreateDivider()
 local units = {}
