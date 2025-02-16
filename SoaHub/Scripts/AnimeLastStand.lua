@@ -1,5 +1,3 @@
--- HEAVILY WORK IN PROGRESS. DO NOT USE THIS SCRIPT YET.
-
 local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
 local Window = Rayfield:CreateWindow({
@@ -281,13 +279,9 @@ end
 
 -- Automation Functions
 local function placeTowers()
-    print("placeTowers called")
     if not isAutoRunning then return end
     for i, unitName in ipairs(units) do
-        print("attempting to place tower: ", unitName)
         local unitPosition = persistentData.unitPositions[i]
-        print("unit position: ", unitPosition)
-
         if unitPosition then
             local unitCFrame = CFrame.new(unitPosition)
             game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("PlaceTower"):FireServer(tostring(unitName), unitCFrame)
@@ -341,7 +335,7 @@ end
 -- Automation UI Elements
 local autoPlaceToggle = automationTab:CreateToggle({
     Name = "Auto Place Units",
-    CurrentValue = false, -- Default value, not persisted
+    CurrentValue = false,
     Flag = "AutoPlaceUnits",
     Callback = function(Value)
         isAutoRunning = Value
@@ -357,7 +351,7 @@ local autoPlaceToggle = automationTab:CreateToggle({
 
 local autoUpgradeTowers = automationTab:CreateToggle({
     Name = "Auto Upgrade Units",
-    CurrentValue = false, -- Default value, not persisted
+    CurrentValue = false,
     Flag = "AutoUpgradeUnits",
     Callback = function(Value)
         isAutoUpgradeRunning = Value
@@ -374,7 +368,7 @@ local autoUpgradeTowers = automationTab:CreateToggle({
 -- Event UI Elements
 local autoRiftToggle = eventTab:CreateToggle({
     Name = "Auto Handle Rifts",
-    CurrentValue = false, -- Default value, not persisted
+    CurrentValue = false,
     Flag = "AutoHandleRifts",
     Callback = function(Value)
         isAutoRiftRunning = Value
@@ -386,7 +380,7 @@ local autoRiftToggle = eventTab:CreateToggle({
 
 local autoEnergyToggle = eventTab:CreateToggle({
     Name = "Auto Collect Energy",
-    CurrentValue = false, -- Default value, not persisted
+    CurrentValue = false,
     Flag = "AutoCollectEnergy",
     Callback = function(Value)
         isAutoEnergyRunning = Value
