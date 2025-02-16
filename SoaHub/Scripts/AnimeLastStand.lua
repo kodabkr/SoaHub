@@ -280,13 +280,17 @@ local function loadData()
 end
 
 -- Automation Functions
-local isAutoRunning = false
 local function placeTowers()
+    print("placeTowers called")
     if not isAutoRunning then return end
     for i, unitName in ipairs(units) do
+        print("attempting to place tower: ", unitName)
         local unitPosition = persistentData.unitPositions[i]
+        print("unit position: ", unitPosition)
+
         if unitPosition then
-            game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("PlaceTower"):FireServer(unitName, unitPosition)
+            local unitCFrame = CFrame.new(unitPosition)
+            game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("PlaceTower"):FireServer(tostring(unitName), unitCFrame)
         end
     end
 end
@@ -297,7 +301,7 @@ local function upgradeTowers()
     for _, towerName in ipairs(units) do
         local tower = workspace:FindFirstChild("Towers") and workspace.Towers:FindFirstChild(towerName)
         if tower then
-            game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("Upgrade"):InvokeServer(tower)
+            game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("UnitManager"):WaitForChild("SetAutoUpgrade"):FireServer(tower, true)
         end
     end
 end
@@ -392,11 +396,11 @@ local autoEnergyToggle = eventTab:CreateToggle({
     end,
 })
 
--- Loop Get Players Towers
-while task.wait(3) do
-    getPlayersTowers()
-end
-
 -- Loading Configuration
 loadData()
 Rayfield:LoadConfiguration()
+
+-- Loop Get Players Towers
+while task.wait(1) do
+    getPlayersTowers()
+end
