@@ -42,7 +42,7 @@ local Window = Rayfield:CreateWindow({
 
 Rayfield:Notify({
     Title = "Welcome to Soa Hub",
-    Content = "Version: 1.0.1",
+    Content = "Version: 1.0.2",
     Duration = 3,
     Image = 4483362458,
 })
@@ -385,7 +385,9 @@ local function placeTowers()
     if not isAutoRunning then return end
     for i, unitName in ipairs(units) do
         local unitPosition = persistentData.unitPositions[i]
-        if unitPosition and persistentData["autoPlaceUnit" .. i] then
+        local towerExists = workspace:FindFirstChild("Towers") and workspace.Towers:FindFirstChild(unitName)
+        
+        if unitPosition and persistentData["autoPlaceUnit" .. i] and not towerExists then
             local unitCFrame = CFrame.new(unitPosition)
             game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("PlaceTower"):FireServer(tostring(unitName), unitCFrame)
         end
@@ -397,8 +399,16 @@ local function upgradeTowers()
     if not isAutoUpgradeRunning then return end
     for _, towerName in ipairs(units) do
         local tower = workspace:FindFirstChild("Towers") and workspace.Towers:FindFirstChild(towerName)
+
         if tower then
-            game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("UnitManager"):WaitForChild("SetAutoUpgrade"):FireServer(tower, true)
+            local autoUpgradeToggled = tower:FindFirstChild("AutoUpgradeToggled")
+            if not autoUpgradeToggled then
+                autoUpgradeToggled = Instance.new("BoolValue")
+                autoUpgradeToggled.Name = "AutoUpgradeToggled"
+                autoUpgradeToggled.Value = true
+                autoUpgradeToggled.Parent = tower
+                game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("UnitManager"):WaitForChild("SetAutoUpgrade"):FireServer(tower, true)
+            end
         end
     end
 end
