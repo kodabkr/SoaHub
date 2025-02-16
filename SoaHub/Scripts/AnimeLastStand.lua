@@ -47,17 +47,10 @@ Rayfield:Notify({
     Image = 4483362458,
 })
 
-Rayfield:Notify({
-    Title = "Join the Discord for Changelogs",
-    Content = "Join discord button found in Extras tab.",
-    Duration = 10,
-    Image = 4483362458,
-})
-
 -- UI Tab Creation
 local automationTab = Window:CreateTab("Automation", "braces")
 local automationDivider = automationTab:CreateDivider()
-local eventTab = Window:CreateTab("Event", "braces")
+local eventTab = Window:CreateTab("Event", "clock")
 local eventDivider = eventTab:CreateDivider()
 local configTab = Window:CreateTab("Configuration", "cog")
 local configDivider = configTab:CreateDivider()
@@ -352,12 +345,6 @@ end
 function copyDiscordLink()
     local link = "https://discord.gg/rdpjRDNDHU"
     setclipboard(link)
-    Rayfield:Notify({
-        Title = "Discord Link Copied!",
-        Content = "",
-        Duration = 3,
-        Image = 4483362458,
-    })
 end
 
 -- UI Elements
@@ -422,7 +409,15 @@ local autoEnergyToggle = eventTab:CreateToggle({
 -- Extras UI Elements
 local discordButton = extrasTab:CreateButton({
     Name = "Copy Discord Link",
-    Callback = copyDiscordLink,
+    Callback = function()
+        copyDiscordLink()
+        Rayfield:Notify({
+            Title = "Discord Link Copied!",
+            Content = "",
+            Duration = 5,
+            Image = 4483362458,
+        })
+    end,
 })
 
 -- Loading Configuration
