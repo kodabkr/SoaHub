@@ -49,8 +49,8 @@ Rayfield:Notify({
 
 Rayfield:Notify({
     Title = "Join the Discord for Changelogs",
-    Content = "discord.gg/rdpjRDNDHU",
-    Duration = 3,
+    Content = "Join discord button found in Extras tab.",
+    Duration = 10,
     Image = 4483362458,
 })
 
@@ -61,9 +61,11 @@ local eventTab = Window:CreateTab("Event", "braces")
 local eventDivider = eventTab:CreateDivider()
 local configTab = Window:CreateTab("Configuration", "cog")
 local configDivider = configTab:CreateDivider()
+local extrasTab = Window:CreateTab("Extras", "star")
+local extrasDivider = extrasTab:CreateDivider()
 local units = {}
 
--- Variables to Persist (only unitPositions now)
+-- Persistent Data
 local persistentData = {
     unitPositions = {}
 }
@@ -346,6 +348,18 @@ local function collectEnergy()
     end
 end
 
+-- Extras Functions
+function copyDiscordLink()
+    local link = "https://discord.gg/rdpjRDNDHU"
+    setclipboard(link)
+    Rayfield:Notify({
+        Title = "Discord Link Copied!",
+        Content = "",
+        Duration = 3,
+        Image = 4483362458,
+    })
+end
+
 -- UI Elements
 -- Automation UI Elements
 local autoPlaceToggle = automationTab:CreateToggle({
@@ -403,6 +417,12 @@ local autoEnergyToggle = eventTab:CreateToggle({
             coroutine.wrap(collectEnergy)()
         end
     end,
+})
+
+-- Extras UI Elements
+local discordButton = extrasTab:CreateButton({
+    Name = "Copy Discord Link",
+    Callback = copyDiscordLink,
 })
 
 -- Loading Configuration
