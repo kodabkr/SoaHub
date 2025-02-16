@@ -30,6 +30,30 @@ local Window = Rayfield:CreateWindow({
     }
 })
 
+--[[
+    Version Rules: major, minor, patch
+    Major: Major changes, breaking changes
+        Example: Changing the entire UI system, changing the entire script, etc.
+    Minor: New features, improvements
+        Example: Adding a new tab, adding a new feature, etc.
+    Patch: Bug fixes, small changes
+        Example: Fixing a bug, changing a small feature, etc.
+]]--
+
+Rayfield:Notify({
+    Title = "Welcome to Soa Hub",
+    Content = "Version: 1.0.1",
+    Duration = 3,
+    Image = 4483362458,
+})
+
+Rayfield:Notify({
+    Title = "Join the Discord for Changelogs",
+    Content = "discord.gg/rdpjRDNDHU",
+    Duration = 3,
+    Image = 4483362458,
+})
+
 -- UI Tab Creation
 local automationTab = Window:CreateTab("Automation", "braces")
 local automationDivider = automationTab:CreateDivider()
