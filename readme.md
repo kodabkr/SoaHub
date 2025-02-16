@@ -5,6 +5,7 @@ Soa Hub is designed to be compatible with most Roblox executors, offering a reli
 ## Supported Games
 
 ### **Anime Adventures (Coming Soon)**
+
 - **Auto Story, Raid, Challenges, Infinity Mansion and Special Events**: Automate your progression across various in-game activities.
 - **Auto Summon**: Summon units with the ability to target units of your choice.
 - **Auto Claim Codes**: Automatically claim all available codes.
@@ -21,5 +22,4 @@ Soa Hub is designed to be compatible with most Roblox executors, offering a reli
 - **Script Development**: Koda | Discord: oapa
 - **Motivational Support**: ParteyLover | Discord: n/a
 
-For further assistance or to report any issues, feel free to reach out via our [Discord server](https://discord.gg/rdpjRDNDHU).
- 
+For further assistance or to report any issues, feel free to reach out via our [Discord server](https://discord.gg/rdpjRDNDHU)
