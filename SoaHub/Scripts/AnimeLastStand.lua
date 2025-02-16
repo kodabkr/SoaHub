@@ -446,7 +446,7 @@ end
 
 -- Extras Functions
 function copyDiscordLink()
-    local link = ""
+    local link = "https://discord.gg/rdpjRDNDHU"
     setclipboard(link)
 end
 
