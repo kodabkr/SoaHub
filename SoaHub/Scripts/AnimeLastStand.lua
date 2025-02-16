@@ -1,3 +1,5 @@
+-- HEAVILY WORK IN PROGRESS. DO NOT USE THIS SCRIPT YET.
+
 local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
 local Window = Rayfield:CreateWindow({
@@ -37,6 +39,7 @@ local eventTab = Window:CreateTab("Event", "braces")
 local eventDivider = eventTab:CreateDivider()
 local configTab = Window:CreateTab("Configuration", "cog")
 local configDivider = configTab:CreateDivider()
+local units = {}
 
 -- Variables to Persist (only unitPositions now)
 local persistentData = {
@@ -165,11 +168,8 @@ local function upgradeTowers()
 end
 
 local function getPlayersTowers()
-    units = {}
     for _, v in pairs(game:GetService("Players").LocalPlayer.Slots:GetChildren()) do
-        if v:IsA("StringValue") then
-            table.insert(units, v.Value)
-        end
+        table.insert(units, v.Value)
     end
 end
 
