@@ -81,17 +81,14 @@ local function saveData()
             end)
 
             if not writeSuccess then
-                warn("Error writing configuration file: ", writeError)
                 Rayfield:Notify({Title = "Save Error", Content = "Failed to save configuration data.", Image = 4400704299})
             else
-                print("Configuration saved successfully to: " .. filePath)
+                Rayfield:Notify({Title = "Saved Data", Content = "Configuration data was saved properly.", Image = 4400704299})
             end
         else
-            warn("writefile function is not available. Cannot save configuration.")
             Rayfield:Notify({Title = "Save Error", Content = "File saving not supported in this environment.", Image = 4400704299})
         end
     else
-        warn("Error encoding configuration data to JSON: ", encodedData)
         Rayfield:Notify({Title = "Save Error", Content = "Failed to prepare configuration data for saving.", Image = 4400704299})
     end
 end
@@ -262,18 +259,12 @@ local function loadData()
                     end
                     updateUnitLabels()
                 end
-                print("Configuration loaded successfully from: " .. filePath)
-                return
             else
-                warn("Error decoding configuration JSON: ", decodedData)
                 Rayfield:Notify({Title = "Load Error", Content = "Configuration file is corrupted or invalid.", Image = 4400704299})
             end
         else
-            warn("Error reading configuration file: ", fileContent)
             Rayfield:Notify({Title = "Load Error", Content = "Failed to read configuration file.", Image = 4400704299})
         end
-    else
-        print("Configuration file not found. Using default settings.")
     end
 end
 
