@@ -98,6 +98,140 @@ local function saveData()
     end
 end
 
+local waitForMouseClick = function()
+    local userInputService = game:GetService("UserInputService")
+    local mouse = game.Players.LocalPlayer:GetMouse()
+    local input = userInputService.InputBegan:Wait()
+    if input.UserInputType == Enum.UserInputType.MouseButton1 then
+        local clickedPosition = mouse.Hit.Position
+        clickedPosition = Vector3.new(clickedPosition.X, clickedPosition.Y + 1, clickedPosition.Z)
+        return clickedPosition
+    end
+end
+
+local unitLabel1 = configTab:CreateLabel("Unit 1: Not Set", 4483362458, Color3.fromRGB(255, 255, 255), false)
+local unitPosButton1 = configTab:CreateButton({
+    Name = "Set Unit 1 Position",
+    Callback = function()
+        local position = waitForMouseClick()
+        if position then
+            persistentData.unitPositions[1] = position
+            unitLabel1:Set("Unit 1: " .. tostring(position), 4483362458, Color3.fromRGB(255, 255, 255), false)
+            saveData()
+            Rayfield:Notify({
+                Title = "Position Indicator",
+                Content = "Unit 1 Position Set to: " .. tostring(position),
+                Duration = 3,
+                Image = 4483362458,
+            })
+        end
+    end,
+})
+
+local unitLabel2 = configTab:CreateLabel("Unit 2: Not Set", 4483362458, Color3.fromRGB(255, 255, 255), false)
+local unitPosButton2 = configTab:CreateButton({
+    Name = "Set Unit 2 Position",
+    Callback = function()
+        local position = waitForMouseClick()
+        if position then
+            persistentData.unitPositions[2] = position
+            unitLabel2:Set("Unit 2: " .. tostring(position), 4483362458, Color3.fromRGB(255, 255, 255), false)
+            saveData()
+            Rayfield:Notify({
+                Title = "Position Indicator",
+                Content = "Unit 2 Position Set to: " .. tostring(position),
+                Duration = 3,
+                Image = 4483362458,
+            })
+        end
+    end,
+})
+
+local unitLabel3 = configTab:CreateLabel("Unit 3: Not Set", 4483362458, Color3.fromRGB(255, 255, 255), false)
+local unitPosButton3 = configTab:CreateButton({
+    Name = "Set Unit 3 Position",
+    Callback = function()
+        local position = waitForMouseClick()
+        if position then
+            persistentData.unitPositions[3] = position
+            unitLabel3:Set("Unit 3: " .. tostring(position), 4483362458, Color3.fromRGB(255, 255, 255), false)
+            saveData()
+            Rayfield:Notify({
+                Title = "Position Indicator",
+                Content = "Unit 3 Position Set to: " .. tostring(position),
+                Duration = 3,
+                Image = 4483362458,
+            })
+        end
+    end,
+})
+
+local unitLabel4 = configTab:CreateLabel("Unit 4: Not Set", 4483362458, Color3.fromRGB(255, 255, 255), false)
+local unitPosButton4 = configTab:CreateButton({
+    Name = "Set Unit 4 Position",
+    Callback = function()
+        local position = waitForMouseClick()
+        if position then
+            persistentData.unitPositions[4] = position
+            unitLabel4:Set("Unit 4: " .. tostring(position), 4483362458, Color3.fromRGB(255, 255, 255), false)
+            saveData()
+            Rayfield:Notify({
+                Title = "Position Indicator",
+                Content = "Unit 4 Position Set to: " .. tostring(position),
+                Duration = 3,
+                Image = 4483362458,
+            })
+        end
+    end,
+})
+
+local unitLabel5 = configTab:CreateLabel("Unit 5: Not Set", 4483362458, Color3.fromRGB(255, 255, 255), false)
+local unitPosButton5 = configTab:CreateButton({
+    Name = "Set Unit 5 Position",
+    Callback = function()
+        local position = waitForMouseClick()
+        if position then
+            persistentData.unitPositions[5] = position
+            unitLabel5:Set("Unit 5: " .. tostring(position), 4483362458, Color3.fromRGB(255, 255, 255), false)
+            saveData()
+            Rayfield:Notify({
+                Title = "Position Indicator",
+                Content = "Unit 5 Position Set to: " .. tostring(position),
+                Duration = 3,
+                Image = 4483362458,
+            })
+        end
+    end,
+})
+
+local unitLabel6 = configTab:CreateLabel("Unit 6: Not Set", 4483362458, Color3.fromRGB(255, 255, 255), false)
+local unitPosButton6 = configTab:CreateButton({
+    Name = "Set Unit 6 Position",
+    Callback = function()
+        local position = waitForMouseClick()
+        if position then
+            persistentData.unitPositions[6] = position
+            unitLabel6:Set("Unit 6: " .. tostring(position), 4483362458, Color3.fromRGB(255, 255, 255), false)
+            saveData()
+            Rayfield:Notify({
+                Title = "Position Indicator",
+                Content = "Unit 6 Position Set to: " .. tostring(position),
+                Duration = 3,
+                Image = 4483362458,
+            })
+        end
+    end,
+})
+
+local function updateUnitLabels()
+    unitLabel1:Set("Unit 1: " .. tostring(persistentData.unitPositions[1] or "Not Set"), 4483362458, Color3.fromRGB(255, 255, 255), false)
+    unitLabel2:Set("Unit 2: " .. tostring(persistentData.unitPositions[2] or "Not Set"), 4483362458, Color3.fromRGB(255, 255, 255), false)
+    unitLabel3:Set("Unit 3: " .. tostring(persistentData.unitPositions[3] or "Not Set"), 4483362458, Color3.fromRGB(255, 255, 255), false)
+    unitLabel4:Set("Unit 4: " .. tostring(persistentData.unitPositions[4] or "Not Set"), 4483362458, Color3.fromRGB(255, 255, 255), false)
+    unitLabel5:Set("Unit 5: " .. tostring(persistentData.unitPositions[5] or "Not Set"), 4483362458, Color3.fromRGB(255, 255, 255), false)
+    unitLabel6:Set("Unit 6: " .. tostring(persistentData.unitPositions[6] or "Not Set"), 4483362458, Color3.fromRGB(255, 255, 255), false)
+end
+
 local function loadData()
     if not isfile then
         warn("isfile function is not available. Cannot load configuration.")
@@ -128,6 +262,7 @@ local function loadData()
                             persistentData.unitPositions[i] = nil
                         end
                     end
+                    updateUnitLabels()
                 end
                 print("Configuration loaded successfully from: " .. filePath)
                 return
@@ -256,44 +391,6 @@ local autoEnergyToggle = eventTab:CreateToggle({
         end
     end,
 })
-
--- Configuration UI Elements
-local waitForMouseClick = function()
-    local userInputService = game:GetService("UserInputService")
-    local mouse = game.Players.LocalPlayer:GetMouse()
-    local input = userInputService.InputBegan:Wait()
-    if input.UserInputType == Enum.UserInputType.MouseButton1 then
-        local clickedPosition = mouse.Hit.Position
-        clickedPosition = Vector3.new(clickedPosition.X, clickedPosition.Y + 1, clickedPosition.Z)
-        return clickedPosition
-    end
-end
-
-local createUnitPositionSetter = function(unitIndex)
-    local unitLabel = configTab:CreateLabel("Unit " .. unitIndex .. ": " .. tostring(persistentData.unitPositions[unitIndex] or "Not Set"), 4483362458, Color3.fromRGB(255, 255, 255), false)
-    local unitPosButton = configTab:CreateButton({
-        Name = "Set Unit " .. unitIndex .. " Position",
-        Callback = function()
-            local position = waitForMouseClick()
-            if position then
-                persistentData.unitPositions[unitIndex] = position
-                unitLabel:Set("Unit " .. unitIndex .. ": " .. tostring(position), 4483362458, Color3.fromRGB(255, 255, 255), false)
-                saveData()
-                Rayfield:Notify({
-                    Title = "Position Indicator",
-                    Content = "Unit " .. unitIndex .. " Position Set to: " .. tostring(position),
-                    Duration = 3,
-                    Image = 4483362458,
-                })
-            end
-        end,
-    })
-    return unitLabel, unitPosButton
-end
-
-for i = 1, 6 do
-    createUnitPositionSetter(i)
-end
 
 -- Loop Get Players Towers
 while task.wait(3) do
