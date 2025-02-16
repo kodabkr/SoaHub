@@ -26,7 +26,7 @@ Soa Hub is designed to be compatible with most Roblox executors, offering a reli
 
 ## Credits
 
-- **Script Development**: Koda | Discord: oapa
-- **Motivational Support**: ParteyLover | Discord: n/a
+- **Script Development**: Anonymous for now | Discord: n/a
+- **Motivational Support**:  | Discord: n/a
 
-For further assistance or to report any issues, feel free to reach out via our [Discord server](https://discord.gg/rdpjRDNDHU).
+For further assistance or to report any issues, feel free to reach out via our Discord server (N/A For now).
